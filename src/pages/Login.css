@@ -1,0 +1,141 @@
+/* Login Page Styles */
+
+.login-bg {
+  min-height: 100vh;
+  background: #f7f8fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-container {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 24px #153A6B22;
+  max-width: 420px;
+  width: 100%;
+  padding: 32px;
+}
+
+.login-header {
+  background: #153A6B;
+  border-radius: 18px 18px 0 0;
+  padding: 24px;
+  margin: -32px -32px 24px -32px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.login-header img {
+  width: 48px;
+  margin-bottom: 8px;
+}
+
+.login-title {
+  color: #fff;
+  margin: 0;
+  font-weight: 700;
+  font-size: 28px;
+  letter-spacing: 1px;
+}
+
+.login-subtitle {
+  margin: 16px 0 8px 0;
+  font-weight: 500;
+  color: #153A6B;
+}
+
+.login-tabs {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.login-tab {
+  flex: 1;
+  padding: 8px 0;
+  background: #fff;
+  color: #153A6B;
+  border: 2px solid #153A6B;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.login-tab.admin {
+  border-right: none;
+  border-radius: 6px 0 0 6px;
+}
+
+.login-tab.staff {
+  border-left: none;
+  border-radius: 0 6px 6px 0;
+}
+
+.login-tab.active {
+  background: #153A6B;
+  color: #fff;
+}
+
+.login-form label {
+  font-weight: 500;
+  color: #153A6B;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.login-form input {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 16px;
+}
+
+.login-form input[type="password"] {
+  margin-bottom: 20px;
+}
+
+.login-btn {
+  width: 100%;
+  background: #153A6B;
+  color: #fff;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+  transition: 0.3s ease;
+}
+
+.login-btn:hover{
+    transform: scale(1.08);
+}
+
+.login-brn:active{
+    transform: scale(0.85);
+    color: #153A6B;
+    background: #fff;
+}
+
+.login-btn:disabled {
+  background: #2a4d7c;
+  cursor: not-allowed;
+}
+
+.login-error {
+  color: red;
+  margin-top: 8px;
+}
+
+.login-hint {
+  text-align: center;
+  color: #888;
+  margin-top: 12px;
+  font-size: 14px;
+}
