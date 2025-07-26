@@ -19,7 +19,7 @@ function PrivateRoute({ children, requiredRole }) {
         return;
       }
       const { data, error } = await supabase
-      .from('profiles') // ✅ correct table
+      .from('profiles')
       .select('role')
       .eq('id', user.id)
       .single();
@@ -52,7 +52,7 @@ export default function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={
+        <Route path="/dashboard/*" element={  // Changed from /dashboard to /dashboard/* to handle nested routes
           <PrivateRoute requiredRole="admin">
             <Dashboard />
           </PrivateRoute>
@@ -67,6 +67,7 @@ export default function App() {
             <AdminStaffManagement />
           </PrivateRoute>
         } />
+        <Route path="/" element={<Navigate to="/dashboard" />} />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </Router>
