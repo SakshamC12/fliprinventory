@@ -472,6 +472,19 @@
   cursor: not-allowed;
 }
 
+/* Product Grid */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.low-stock {
+  border: 1px solid #fecaca !important;
+  background-color: #fff3cd !important;
+}
+
 /* Modal Styles */
 .modal-overlay {
   position: fixed;
@@ -489,10 +502,10 @@
 .modal-content {
   background: white;
   padding: 2rem;
-  border-radius: 8px;
+  border-radius: 0.75rem;
   width: 100%;
   max-width: 500px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .modal-content h3 {

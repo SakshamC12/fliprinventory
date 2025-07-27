@@ -80,7 +80,7 @@ export default function Login() {
         return;
       }
 
-      // Set session in localStorage
+      // Set session in sessionStorage instead of localStorage
       const sessionData = {
         id: staffData.id,
         staff_id: staffData.staff_id,
@@ -90,7 +90,7 @@ export default function Login() {
         role: 'staff'
       };
       
-      localStorage.setItem('staff_session', JSON.stringify(sessionData));
+      sessionStorage.setItem('staffData', JSON.stringify(sessionData));
       navigate('/staff-dashboard');
     } catch (error) {
       console.error('Login error:', error);

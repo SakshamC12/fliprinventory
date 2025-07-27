@@ -65,12 +65,12 @@ export default function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard/*" element={  // Changed from /dashboard to /dashboard/* to handle nested routes
+        <Route path="/dashboard/*" element={  
           <PrivateRoute requiredRole="admin">
             <Dashboard />
           </PrivateRoute>
         } />
-        <Route path="/staff-dashboard" element={
+        <Route path="/staff-dashboard/*" element={  // Added /* for nested routes
           <PrivateRoute requiredRole="staff">
             <StaffDashboard />
           </PrivateRoute>
