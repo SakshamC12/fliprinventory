@@ -56,34 +56,44 @@ export default function Login() {
       // Find the staff by staff_id
       const { data: staffData, error: staffError } = await supabase
         .from('staff')
-        .select('*')
-        .eq('staff_id', staffId)
+        .select('id, staff_id, first_name, last_name, password, department')
+        .eq('staff_id', staffId.trim())
         .single();
         
-      if (staffError || !staffData) {
-        setError('Invalid Staff ID.');
+      if (staffError) {
+        console.error('Staff lookup error:', staffError);
+        setError('Invalid Staff ID or password.');
+        setLoading(false);
+        return;
+      }
+
+      if (!staffData) {
+        setError('Invalid Staff ID or password.');
         setLoading(false);
         return;
       }
 
       // Simple password comparison (plain text)
       if (staffPassword !== staffData.password) {
-        setError('Invalid password.');
+        setError('Invalid Staff ID or password.');
         setLoading(false);
         return;
       }
 
       // Set session in localStorage
-      localStorage.setItem('staff_session', JSON.stringify({
+      const sessionData = {
         id: staffData.id,
         staff_id: staffData.staff_id,
         first_name: staffData.first_name,
         last_name: staffData.last_name,
+        department: staffData.department,
         role: 'staff'
-      }));
+      };
       
+      localStorage.setItem('staff_session', JSON.stringify(sessionData));
       navigate('/staff-dashboard');
     } catch (error) {
+      console.error('Login error:', error);
       setError('An unexpected error occurred.');
       setLoading(false);
     }
@@ -178,4 +188,4 @@ export default function Login() {
       </div>
     </div>
   );
-} 
+}

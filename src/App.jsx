@@ -12,24 +12,38 @@ function PrivateRoute({ children, requiredRole }) {
 
   useEffect(() => {
     const checkAuth = async () => {
+      // Check for admin authentication first
       const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        setUserRole(null);
-        setLoading(false);
-        return;
+      
+      if (user) {
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', user.id)
+          .single();
+
+        if (profile?.role) {
+          setUserRole(profile.role);
+          setLoading(false);
+          return;
+        }
       }
-      const { data, error } = await supabase
-      .from('profiles')
-      .select('role')
-      .eq('id', user.id)
-      .single();
-      if (error || !data) {
-        setUserRole(null);
-      } else {
-        setUserRole(data.role);
+
+      // Check for staff session if no admin auth
+      const staffSession = localStorage.getItem('staff_session');
+      if (staffSession) {
+        const staff = JSON.parse(staffSession);
+        if (staff.role === 'staff') {
+          setUserRole('staff');
+          setLoading(false);
+          return;
+        }
       }
+
+      setUserRole(null);
       setLoading(false);
     };
+
     checkAuth();
   }, []);
 
@@ -38,7 +52,6 @@ function PrivateRoute({ children, requiredRole }) {
   if (!userRole) return <Navigate to="/login" />;
   
   if (requiredRole && userRole !== requiredRole) {
-    // Redirect based on role
     if (userRole === 'admin') return <Navigate to="/dashboard" />;
     if (userRole === 'staff') return <Navigate to="/staff-dashboard" />;
     return <Navigate to="/login" />;
