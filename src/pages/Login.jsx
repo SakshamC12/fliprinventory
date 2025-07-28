@@ -58,7 +58,7 @@ export default function Login() {
         .from('staff')
         .select('id, staff_id, first_name, last_name, password, department')
         .eq('staff_id', staffId.trim())
-        .single();
+        .maybeSingle();
         
       if (staffError) {
         console.error('Staff lookup error:', staffError);
@@ -68,7 +68,7 @@ export default function Login() {
       }
 
       if (!staffData) {
-        setError('Invalid Staff ID or password.');
+        setError('No staff found with that ID.');
         setLoading(false);
         return;
       }
@@ -92,8 +92,8 @@ export default function Login() {
       
       sessionStorage.setItem('staffData', JSON.stringify(sessionData));
       navigate('/staff-dashboard');
-    } catch (error) {
-      console.error('Login error:', error);
+    } catch (err) {
+      console.error('Login error:', err);
       setError('An unexpected error occurred.');
       setLoading(false);
     }
