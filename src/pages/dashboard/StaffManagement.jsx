@@ -100,6 +100,45 @@ export default function StaffManagement() {
     }
   };
 
+  // Add Staff form input change handler
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewStaff((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // Add Staff form submit handler
+  const handleAddStaff = async (e) => {
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
+    // Validate required fields
+    if (!newStaff.staff_id || !newStaff.first_name || !newStaff.last_name || !newStaff.password) {
+      setError('Please fill in all required fields.');
+      setLoading(false);
+      return;
+    }
+    try {
+      const { error } = await supabase.from('staff').insert([
+        {
+          staff_id: newStaff.staff_id,
+          first_name: newStaff.first_name,
+          last_name: newStaff.last_name,
+          password: newStaff.password,
+          department: newStaff.department,
+        },
+      ]);
+      if (error) throw error;
+      setShowAddModal(false);
+      setNewStaff({ staff_id: '', first_name: '', last_name: '', password: '', department: '' });
+      fetchStaffMembers();
+    } catch (error) {
+      setError('Failed to add staff member.');
+      console.error('Add staff error:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="dashboard-section">
       <h2>Staff Management</h2>

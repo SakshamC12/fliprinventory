@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { supabase } from '../../supabaseClient';
 
 export default function StaffProfile() {
   const [profile, setProfile] = useState(null);
@@ -32,11 +31,11 @@ export default function StaffProfile() {
   if (!profile) return <div>No profile data found</div>;
 
   return (
-    <div className="staff-profile">
-      <h2>My Profile</h2>
-      <div className="profile-card">
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
+      <div className="content-card" style={{ maxWidth: 400, width: '100%', textAlign: 'center', padding: '2.5rem 2rem' }}>
+        <h2 style={{ marginBottom: '1.5rem', color: '#153A6B' }}>My Profile</h2>
         <div className="profile-info">
-          <h3>Staff Information</h3>
+          <h3 style={{ marginBottom: '1rem', color: '#1a365d' }}>Staff Information</h3>
           <p><strong>Staff ID:</strong> {profile.staff_id}</p>
           <p><strong>Name:</strong> {profile.first_name} {profile.last_name}</p>
           <p><strong>Department:</strong> {profile.department}</p>
